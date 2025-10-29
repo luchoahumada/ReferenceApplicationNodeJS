@@ -58,7 +58,9 @@ public class Utils {
 		if (useConfig && !params.containsKey("config")) {
 			// "C:\apps\refapp\tools\java\lib" -> "C:/apps/refapp/tools/java/dasher.properties"
 			String libFolder = Utils.normalizePath( Utils.getLibraryFolder(MediaTools.class), true);
-			params.put("config", new File(libFolder).getParent()+"/dasher.properties" );
+			String config    = new File(libFolder).getParent()+"/dasher.properties";
+			if(new File(config).exists())
+				params.put("config", config);
 		}
 		
 		String config = getString(params, "config", "", true);

@@ -43,12 +43,14 @@ if( isset( $profileResources ) ){
 			// "/dist/legacy/umd/" is UMD build targeting legacy platforms by specifying the babel target ie: '11', core.js polyfills are enabled.
 			// also available "/dist/modern/umd/", "/dist/modern/esm/"
 			$resources[] = ($isHTTPS?"https:":"http:")."//reference.dashif.org/dash.js/nightly/dist/legacy/umd/dash.all.debug.js"; // V5
+		} else if($dashjs=="v4") {
+			$resources[] = "../videoplayer/dash.all.min_v4.7.4.js"; // V4.7.4
 		} else if($dashjs=="latest") {
-			$resources[] = ($isHTTPS?"https:":"http:")."//cdn.dashjs.org/latest/dash.all.min.js"; // V4.7.4
+			$resources[] = ($isHTTPS?"https:":"http:")."//cdn.dashjs.org/latest/dash.all.min.js"; // V5.0.3
 		} else if($dashjs=="debug") {
 			$resources[] = "../videoplayer/dash.all.debug.js"; // with EME "showing" subtitle fix, V4.7.4
 		} else {
-			$resources[] = "../videoplayer/dash.all.min.js"; // V4.7.4
+			$resources[] = "../videoplayer/dash.all.min.js"; // V5.1.0
 		}		
 		$resources[] = "../videoplayer/videoplayer_mse-eme.js";
 	}

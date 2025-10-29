@@ -58,7 +58,7 @@ public class BoxModifier {
 			
 			isOk = Utils.getBoolean(params, "drm.widevine", true);
 			if (isOk) {
-				String url="";
+				String url = Utils.getString(params, "drm.widevine.laurl", "", true);
 				boolean isModified=setPSSH(videoFile, outputFile, DashDRM.WIDEVINE.SYSID, kid, key, url
 						, Utils.getString(params, "drm.widevine.provider", "", true)
 						, Utils.getString(params, "drm.widevine.contentid", "", true)
@@ -282,13 +282,13 @@ public class BoxModifier {
 		boolean isModified=false;
 		String b64pssh=null;
 		Map<String,String> params=new HashMap<String,String>();
-		params.put("drm.kid", kid);
-		params.put("drm.key", key);
+		params.put("drm.kid.video", kid);
+		params.put("drm.key.video", key);
 		params.put("drm.mode", alg);
 		
 		if (systemId.equalsIgnoreCase(DashDRM.PLAYREADY.SYSID)) {
 			params.put("drm.playready", "1");
-			params.put("drm.playready.laurl", laurl);
+			params.put("drm.playready.laurl.video", laurl);
 			DashDRM drm= new DashDRM();
 			drm.initParams(params);
 			byte[] buf = drm.createPlayreadyXML(kid, key, laurl, alg).getBytes("UTF-16LE");
@@ -299,6 +299,7 @@ public class BoxModifier {
 		} else if (systemId.equalsIgnoreCase(DashDRM.WIDEVINE.SYSID)) {
 			// todo: does not modify yet, just printout
 			params.put("drm.widevine", "1");
+			params.put("drm.widevine.laurl.video", laurl);
 			params.put("drm.widevine.provider", wvProvider);
 			params.put("drm.widevine.contentid", wvContentId);
 			DashDRM drm= new DashDRM();
@@ -312,13 +313,13 @@ public class BoxModifier {
 		System.out.println(b64pssh); // this is a full PSSH in base64 encoding
 		
 		System.out.println(String.format("LaUrl  : %s", laurl ));
-		String val = params.get("drm.kid");
+		String val = params.get("drm.kid.video");
 		if(val.startsWith("0x")) val=val.substring(2);
 		System.out.println(String.format("KidGUID: %s-%s-%s-%s-%s" 
 			, val.substring(0,8), val.substring(8,12), val.substring(12,16)
 			, val.substring(16,20), val.substring(20) ));
 		System.out.println(String.format("KidHex : %s", val ));
-		val = params.get("drm.key");
+		val = params.get("drm.key.video");
 		if(val.startsWith("0x")) val=val.substring(2);
 		System.out.println(String.format("KeyHex : %s", val ));
 		System.out.println(String.format("KeyB64 : %s", Utils.base64Encode(Utils.hexToBytes(val)) ));

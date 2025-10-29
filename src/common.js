@@ -512,6 +512,13 @@ function arrayBufferToString(buffer){
 	}
 	return str;
 }
+function arrayBufferToHex(buffer){
+	var str = "";
+	var arr = new Uint8Array(buffer);
+	for(var idx=0; idx<arr.length; idx++)
+		 str += arr[idx].toString(16).padStart(2, "0");
+	return str;
+}
 
 // Convert Uint8Array bytes to String 
 function uint8ArrayToString(arrUint8) {
@@ -897,21 +904,6 @@ function getDeviceID(sysid, callback) {
 	} catch(ex) {
 		callback(false, "Error "+ XMLEscape(ex.message));
 	}
-}
-
-/* LocalStorage wrapper functions */
-function storage_getItem(sKey, sDefVal) {
-	sKey = sKey.replace(/ /g, "");
-	var val = localStorage.getItem(sKey);
-	return val!=null ? val : sDefVal;
-}
-function storage_setItem(sKey, sVal) {
-	sKey = sKey.replace(/ /g, "");
-	localStorage.setItem(sKey, sVal);
-}
-function storage_removeItem(sKey) {
-	sKey = sKey.replace(/ /g, "");
-	localStorage.removeItem(sKey);
 }
 
 function getBrowserInfo() {

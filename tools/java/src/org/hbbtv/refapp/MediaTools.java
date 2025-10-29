@@ -85,6 +85,20 @@ public class MediaTools {
 		if(val.equals("-1") || val.equals("0"))
 			params.put("timelimit", "");
 		
+		val = Utils.getString(params, "image.1", "", true);
+		if(val.isEmpty()) {
+			params.put("image.1", "320x180");
+			params.put("image.2", "640x360");
+			params.put("image.3", "1280x720");
+		}
+		
+		// 2=delete mpd+mp4 temp files but keep log.txt
+		val = Utils.getString(params, "deletetempfiles", "", true);
+		if(val.equals("2")) {
+			params.put("deletetempfiles", "1");
+			params.put("deletetempfiles_log", "0");
+		}
+		
 		// manifest profile
 		val = Utils.getString(params, "profile", "", true);
 		if(val.isEmpty()) params.put("profile", "dvb2014");  // hbbtv15

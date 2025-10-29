@@ -63,22 +63,18 @@ VideoPlayerEME.prototype.createPlayer = function(){
 				: sLoglevel=="none" ? dashjs.Debug.LOG_LEVEL_NONE
 				: dashjs.Debug.LOG_LEVEL_WARNING;		
 		
-		this.player.updateSettings({
+		this.player.updateSettings({ 
 			debug: { logLevel: iLoglevel }
 			,streaming: {
-				text: { defaultEnabled: true }
+				text: {defaultEnabled: true}
 				//,manifestUpdateRetryInterval: 100
 				,delay: {
 					//liveDelayFragmentCount: 4,  // segcount
 					//liveDelay: 6, // seconds
-					useSuggestedPresentationDelay: true
+					useSuggestedPresentationDelay: true 
 				}
-				,capabilities: {
-					useMediaCapabilitiesApi: false  // true=CapsApi, false=EME.isTypeSupported(older func)
-					//,filterUnsupportedEssentialProperties: true
-				}
-			}
-		});
+			}  
+		}); 
 		console.log("video object created, dashjs "+this.player.getVersion() );
 	} catch( e ){
 		console.log(e);
@@ -563,7 +559,6 @@ VideoPlayerEME.prototype.sendLicenseRequest = function(callback){
 			: this.drm.system.indexOf(".SL150")>0           ? "150"
 			: this.drm.system.indexOf(".150")>0             ? "150" // worst
 			: this.drm.system=="playready"                  ? "default"
-			: this.drm.system=="playready.auto"             ? "default"
 			: "2000";
 		
 		var isEdge = getBrowserInfo().name=="Edge"; // MSEdge(chromium) shall always use playready.recommendation
@@ -740,14 +735,35 @@ VideoPlayerEME.prototype.sendLicenseRequest = function(callback){
 					drmRestartFn();
 				}
 			} else {
-				// save a new drmSessionId to a localStorage and reuse later
-				if(!drmSessionObjRemove && storage_getItem("drmSessionId."+self.drm.persist_key, "")=="") {
-					console.log("Save a license session for later use, key="+self.drm.persist_key 
-						+ ", DRMSessionId="+ (drmSessionObj!=null ? drmSessionObj.getSessionId():"") );
-					storage_setItem("drmSessionId."+self.drm.persist_key, drmSessionObj.getSessionId() );
+				var isUsable=true;
+				// KeyID=expired|usable,status-pending|released|internal-error|..
+				for(var keyStatus of evt.data.getKeyStatuses().entries()) {
+					console.log("DRM keyStatus: "+ arrayBufferToHex(keyStatus[0]) +"="+keyStatus[1]); 
+					if(keyStatus[1]=="expired" || keyStatus[1]=="released" || keyStatus[1]=="internal-error") {
+						isUsable=false;
+						break;
+					}
+				}
+				if(!isUsable) {
+					storage_removeItem("drmSessionId."+self.drm.persist_key);
+					var sMsg = "Key not usable on KeyStatusesChanged";
+					console.log("Remove an invalid license session, key="+self.drm.persist_key 
+						+ ", DRMSessionId="+ (drmSessionObj!=null ? drmSessionObj.getSessionId():"") 
+						+ ", " + sMsg);
+					self.player.getProtectionController().removeKeySession(drmSessionObj);
+					drmSessionObj=null;
+					drmSessionObjRemove=true; // event may be called N times, do not use this sessionId anymore.
+					drmRestartFn();					
+				} else {
+					// save a new drmSessionId to a localStorage and reuse later
+					if(!drmSessionObjRemove && storage_getItem("drmSessionId."+self.drm.persist_key, "")=="") {
+						console.log("Save a license session for later use, key="+self.drm.persist_key 
+							+ ", DRMSessionId="+ (drmSessionObj!=null ? drmSessionObj.getSessionId():"") );
+						storage_setItem("drmSessionId."+self.drm.persist_key, drmSessionObj.getSessionId() );
+					}
 				}
 			}
-		});			
+		});
 	}
 	
 	self.drm.ready = true;

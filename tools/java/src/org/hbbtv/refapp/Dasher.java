@@ -34,6 +34,11 @@ public class Dasher {
 				throw new IllegalArgumentException("Invalid output value '" + val +"'");
 			if (!val.endsWith("/")) val+="/";
 			File outputFolder = new File(val);
+						
+			if (!Utils.getBoolean(params, "overwrite", true)) {
+				 if( new File(outputFolder, "manifest.mpd").exists() || new File(outputFolder, "manifest.m3u8").exists() )				
+					 throw new IllegalArgumentException("Output file already exists, output="+outputFolder.getAbsolutePath()+"/manifest.mpd");
+			}
 			outputFolder.mkdirs();
 			
 			// temp folder for temp-v1.mp4(transcoded) intermediate files
@@ -51,7 +56,7 @@ public class Dasher {
 
 			// delete main manifest and old files from output
 			if (Utils.getBoolean(params, "deleteoldfiles", true))
-				deleteOldFiles(outputFolder, false);
+				deleteOldFiles(outputFolder, false,true);
 			else
 				new File(outputFolder, "manifest.mpd").delete();
 
@@ -283,7 +288,7 @@ public class Dasher {
 			// DASH: write unencrypted segments
 			if(arrSegments.contains("nodrm")) {
 				for(StreamSpec spec : specs)
-					deleteOldFiles(new File(outputFolder, spec.name), true);
+					deleteOldFiles(new File(outputFolder, spec.name), true,true);
 				
 				List<String> args=MediaTools2.getDashArgs(specs, segdur,
 					timeLimit,
@@ -366,13 +371,22 @@ public class Dasher {
 			}
 			
 			if (Utils.getBoolean(params, "deletetempfiles", true)) {
-				deleteOldFiles(tempFolder, true);
+				deleteOldFiles(tempFolder, true, Utils.getBoolean(params, "deletetempfiles_log", true) );
 				tempFolder.delete();
 			}
 						
 			params.put("iobuffer", "");
 			logger.println("");			
 			logger.println(Utils.getNowAsString() + " Completed dashing");
+
+			// delete dash files (fixme: delete all mpd from drm subfolders as well) 
+			if(!Utils.getBoolean(params, "dash", true)) {
+				new File(outputFolder, "manifest.mpd").delete();
+				new File(outputFolder, "manifest_subib.mpd").delete();
+				new File(outputFolder, "manifest_subob.mpd").delete();
+				new File(outputFolder, "cenc/manifest.mpd").delete();
+				new File(outputFolder, "cbcs/manifest.mpd").delete();
+			}
 			
 			// write metajson to stdout
 			if (Utils.getBoolean(params, "logfile.metasysout", false))
@@ -392,25 +406,30 @@ public class Dasher {
 		}
 	}
 
-	public static int deleteOldFiles(File folder, boolean delImages) throws IOException {
+	public static int deleteOldFiles(File folder, boolean delImages, boolean delTexts) throws IOException {
 		int count=0;
-		String exts[] = new String[] { ".m4s", ".mp4", 
-				".mpd", ".m3u8", 
-				".xml", ".txt" };
+		List<String> exts = new ArrayList<String>(8);
+		exts.add(".m4s");
+		exts.add(".mp4");
+		exts.add(".mpd");
+		exts.add(".m3u8");
+		exts.add(".xml");
 		if(delImages) {
-			String extn[]  = new String[] {".jpg", ".jpeg", ".png" };
-			String newArr[]= new String[exts.length+extn.length];
-			System.arraycopy(exts, 0, newArr, 0, exts.length);
-			System.arraycopy(extn, 0, newArr, exts.length, extn.length);
-			exts = newArr;
+			exts.add(".jpg");
+			exts.add(".jpeg");
+			exts.add(".png");
 		}
+		if(delTexts) {
+			exts.add(".txt");
+		}
+		
 		File[] files=folder.listFiles();
 		if (files==null) return 0;
 		for(File file : files) {
 			if (file.isFile()) {
 				String name = file.getName();
-				for(int idx=0; idx<exts.length; idx++) {
-					String ext=exts[idx];
+				for(int idx=0; idx<exts.size(); idx++) {
+					String ext=exts.get(idx);
 					boolean del=false;
 					if(ext.equals(".mp4") || ext.equals(".xml") 
 							|| ext.equals(".txt")) {
@@ -453,9 +472,9 @@ public class Dasher {
 		
 		// delete old files from output folder
 		outputFolderDrm.mkdir();
-		deleteOldFiles(outputFolderDrm, true);
+		deleteOldFiles(outputFolderDrm, true,true);
 		for(StreamSpec spec : specs) {
-			deleteOldFiles( new File(outputFolderDrm, spec.name), true );
+			deleteOldFiles( new File(outputFolderDrm, spec.name), true,true);
 		}
 		
 		String val=drm.createGPACDRM("video", mode); // cenc,cbcs,cbcs0
@@ -648,7 +667,7 @@ public class Dasher {
 
 	private static void modifyInitSegment(StreamSpec spec, File outputFolder, boolean isSingleSeg, boolean livesim) 
 			throws IOException {
-		// remove moov/trak/senc box from init.mp4, it breaks some hbbtv players, box is found in a 1..n.m4s files.		
+		// remove moov/trak/senc box from init.mp4, it breaks some hbbtv players.		
 		// some dash validators give a warning of an unknown atom 'udta', we don't need an user-defined-meta box. 
 		File initFile = isSingleSeg ? new File(outputFolder, spec.name+"/"+spec.name+".mp4") :
 				new File(outputFolder, spec.name+"/i.mp4");
@@ -741,7 +760,7 @@ public class Dasher {
 		String val = Utils.getString(params, "image.seconds", "", true);  // "15" or "15,60,120"
 		if(val.isEmpty() || val.equalsIgnoreCase("-1")) return false;		
 		List<String> timeSecs = Utils.getList(val, ",");
-
+		
 		List<String> items=new ArrayList<String>(4);
 		logger.println("");
 		for(int idx=1; ; idx++) {
@@ -749,6 +768,7 @@ public class Dasher {
 			if (val.isEmpty()) break;
 			if (!val.endsWith("disable")) items.add(val);
 		}
+		
 		if(!items.isEmpty()) {
 			// adjust timestamp if video duration is short or inside the trailing "DURATION-10s" range 
 			// short video may have just one I-Frame at the start,
