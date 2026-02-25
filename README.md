@@ -35,6 +35,7 @@ The original upstream project (PHP-based) is:
 - HbbTV developer getting started guide: https://developer.hbbtv.org/guide/getting-started/before-you-start/
 
 Use upstream if you need the original PHP runtime and behavior as maintained by HbbTV Association.
+In this fork, the tracked base catalogue config is `src/catalogue/config-template.json` and `src/catalogue/config.json` is generated locally.
 For reference, the original upstream `config.json` is:
 
 - https://github.com/HbbTV-Association/ReferenceApplication/blob/master/src/catalogue/config.json
