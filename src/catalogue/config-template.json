@@ -78,11 +78,11 @@
           "subtitles": [
             {
               "code": "eng",
-              "src": "../getSubs.php?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_eng.xml"
+              "src": "../api/subs?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_eng.xml"
             },
             {
               "code": "fin",
-              "src": "../getSubs.php?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_fin.xml"
+              "src": "../api/subs?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_fin.xml"
             }
           ],
           "profile": [
@@ -214,11 +214,11 @@
           "subtitles": [
             {
               "code": "eng",
-              "src": "../getSubs.php?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_eng.xml"
+              "src": "../api/subs?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_eng.xml"
             },
             {
               "code": "fin",
-              "src": "../getSubs.php?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_fin.xml"
+              "src": "../api/subs?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_fin.xml"
             }
           ],
           "profile": [
@@ -501,11 +501,11 @@
           "subtitles": [
             {
               "code": "eng",
-              "src": "../getSubs.php?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_eng.xml"
+              "src": "../api/subs?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_eng.xml"
             },
             {
               "code": "fin",
-              "src": "../getSubs.php?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_fin.xml"
+              "src": "../api/subs?file=https://refapp.hbbtv.org/videos/00_llama_h264_v9/sub_fin.xml"
             }
           ],
           "profile": [
@@ -585,7 +585,7 @@
           "img": "icons/icons_1x1_1080p.png",
           "app": 6,
           "drm": "clearkey",
-          "la_url": "https://refapp.hbbtv.org/videos/laurl_ck.php?kid=1236",
+          "la_url": "../api/test/laurl-ck?kid=1236",
           "desc": "ClearKey CENC, laurl override method",
           "profile": [
             "mse-eme"
@@ -597,7 +597,7 @@
           "img": "icons/icons_1x1_2160p.png",
           "app": 6,
           "drm": "clearkey",
-          "la_url": "https://refapp.hbbtv.org/videos/laurl_ck.php?kid=1237",
+          "la_url": "../api/test/laurl-ck?kid=1237",
           "desc": "ClearKey CENC, laurl override method, h265(720p,1080p,2160p)",
           "profile": [
             "mse-eme"
@@ -609,7 +609,7 @@
           "img": "icons/icons_1x1_insert-ad.png",
           "drm": "clearkey",
           "app": 6,
-          "la_url": "https://refapp.hbbtv.org/videos/laurl_ck.php?kid=1236",
+          "la_url": "../api/test/laurl-ck?kid=1236",
           "desc": "Ads from an ad-server, play separate mp4 files at preroll, 20s, 40s, 60s",
           "adBreaks": [
             {
@@ -643,7 +643,7 @@
           "img": "icons/icons_1x1_1080p-cbcs.png",
           "app": 6,
           "drm": "clearkey",
-          "la_url": "https://refapp.hbbtv.org/videos/laurl_ck.php?kid=1236",
+          "la_url": "../api/test/laurl-ck?kid=1236",
           "desc": "ClearKey CBCS, laurl override method",
           "profile": [
             "mse-eme"
@@ -721,7 +721,7 @@
       "items": [
         {
           "title": "6.1 Live",
-          "url": "https://refapp.hbbtv.org/videos/multiperiod_v8.php?drm=0&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&mup=event&spd=8",
+          "url": "../api/test/multiperiod?drm=0&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&mup=event&spd=8",
           "img": "icons/icons_1x1_1080p.png",
           "app": 6,
           "drm": "",
@@ -731,7 +731,7 @@
         },
         {
           "title": "6.2 Live (2s reload interval)",
-          "url": "https://refapp.hbbtv.org/videos/multiperiod_v8.php?drm=0&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&mup=2&spd=8",
+          "url": "../api/test/multiperiod?drm=0&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&mup=2&spd=8",
           "img": "icons/icons_1x1_1080p.png",
           "app": 6,
           "drm": "",
@@ -741,7 +741,7 @@
         },
         {
           "title": "6.3 Live (Playready)",
-          "url": "https://refapp.hbbtv.org/videos/multiperiod_v8.php?drm=pr,cenc&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&mup=event&spd=8",
+          "url": "../api/test/multiperiod?drm=pr,cenc&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&mup=event&spd=8",
           "img": "icons/icons_1x1_1080p.png",
           "app": 6,
           "drm": "playready",
@@ -751,7 +751,7 @@
         },
         {
           "title": "6.4 Live (Playready, 2s reload interval)",
-          "url": "https://refapp.hbbtv.org/videos/multiperiod_v8.php?drm=pr,cenc&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&mup=2&spd=8",
+          "url": "../api/test/multiperiod?drm=pr,cenc&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&mup=2&spd=8",
           "img": "icons/icons_1x1_1080p.png",
           "app": 6,
           "drm": "playready",
@@ -761,7 +761,7 @@
         },
         {
           "title": "6.7 Static (Playready)",
-          "url": "https://refapp.hbbtv.org/videos/multiperiod_v8.php?drm=pr,cenc&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&static=1&pflag=startonfirst",
+          "url": "../api/test/multiperiod?drm=pr,cenc&advert=1&emsg=0&video=v1,v2,v3&audiolang=eng,fin&sublang=eng,fin,swe&static=1&pflag=startonfirst",
           "img": "icons/icons_1x1_1080p.png",
           "app": 6,
           "drm": "playready",
@@ -783,21 +783,21 @@
         },
         {
           "title": "Set mode HbbTV 1.5",
-          "eval": "location.href='index_oipf.php'",
+          "eval": "location.href='index-oipf'",
           "app": 0,
           "img": "icons/icons_1x1_wrench.png",
           "desc": "oipfDrmAgent and OBJECT element for media playback"
         },
         {
           "title": "Set mode HbbTV 2.0.x",
-          "eval": "location.href='index_html5.php'",
+          "eval": "location.href='index-html5'",
           "app": 0,
           "img": "icons/icons_1x1_wrench.png",
           "desc": "oipfDrmAgent and html5 VIDEO element for media playback"
         },
         {
           "title": "Set mode MSE-EME",
-          "eval": "location.href='index_mse-eme.php'",
+          "eval": "location.href='index-mse-eme'",
           "app": 0,
           "img": "icons/icons_1x1_wrench.png",
           "desc": "MediaSourceExtension and EncryptedMediaExtension for media playback"

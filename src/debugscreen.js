@@ -31,7 +31,7 @@ function saveAppLog(){
 		$.ajax({
 			type : "POST",
 			data : JSON.stringify( applog ),
-			url : "log/save.php",
+			url : "/api/catalogue/log/save",
 			contentType : "json",
 			success : function(response){
 				console.log(response);

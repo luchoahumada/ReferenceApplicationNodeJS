@@ -41,7 +41,7 @@ function sendLogs()
 		$.ajax({
 			data : JSON.stringify( errbuffer ) ,
 			dataType : "json",
-			url : "../log.php?type=error",
+			url : "../api/log?type=error",
 			type : "post"
 		}).always(function( data ) {
 			console.log( data.responseText );
@@ -54,7 +54,7 @@ function sendLogs()
 		$.ajax({
 			data : JSON.stringify( logbuffer ) ,
 			dataType : "json",
-			url : "../log.php?type=log",
+			url : "../api/log?type=log",
 			type : "post"
 		}).always(function( data ) {
 			console.log( data.responseText );

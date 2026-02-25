@@ -476,7 +476,7 @@ VideoPlayerHTML5.prototype.getAds = function( adBreak ){
 	}
 	var self = this;
 	console.log("get ads breaks=" + adBreak.ads + ", position="+adBreak.position );
-	$.get( "../getAds.php?breaks=" + adBreak.ads + "&position="+adBreak.position, function(ads){
+	$.get( "../api/ads?breaks=" + adBreak.ads + "&position="+adBreak.position, function(ads){
 		self.adBuffer = ads;
 		console.log( "Got " + ads.length + " ads");
 		

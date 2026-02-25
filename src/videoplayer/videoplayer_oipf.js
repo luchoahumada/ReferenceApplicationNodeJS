@@ -164,7 +164,7 @@ VideoPlayer.prototype.getAds = function( adBreak ){
 	this.video.pause();
 	var self = this;
 	console.log("get ads breaks=" + adBreak.ads + ", position="+adBreak.position );
-	$.get( "../getAds.php?breaks=" + adBreak.ads + "&position="+adBreak.position, function(ads){
+	$.get( "../api/ads?breaks=" + adBreak.ads + "&position="+adBreak.position, function(ads){
 		self.adBuffer = ads;
 		//self.adCount = ads.length;
 		console.log( "Got " + ads.length + " ads");		

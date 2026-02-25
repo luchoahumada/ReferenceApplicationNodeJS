@@ -150,7 +150,7 @@ function saveConfig(idxTab, fnRetval) {
 	var fn=function(xhr) {
 		fnRetval(xhr);
 	};
-	ajaxCall("POST", "application/json; charset=UTF-8", "saveConfig.php", data, fn);
+	ajaxCall("POST", "application/json; charset=UTF-8", "/api/editor/config", data, fn);
 }
 
 

@@ -19,41 +19,31 @@ HbbTV Association is happy to accept content contributions to be included in the
 
 The software is under continuous development and licensed with MIT License.
 
-## Runtime notes (PHP and Node.js)
+## This fork: Node.js runtime (no PHP dependency)
 
-This repository keeps the original PHP implementation and also includes an additional Node.js runtime option.
+This repository is a **Node.js-focused fork** of the original HbbTV Reference Application.
 
-- PHP remains available as originally provided (`src/**/*.php`).
-- Node.js support is additive for local/dev use (`server/`, `package.json`).
-- Coexistence details and Node start instructions are documented in `README_NODEJS.md`.
+- In this fork, the app runs through Node/Express (`server/index.js`).
+- Frontend runtime requests were moved away from `.php` endpoints to Node API routes.
+- PHP is not required to run this fork.
 
-### What was done for Node.js in this repository
+### Original project
 
-The project was prepared to run with Node.js while keeping the original PHP code in the same repository.
+The original upstream project (PHP-based) is:
 
-- **When**: This migration was introduced in this local repository update during the current maintenance cycle.
-- **Why**: The main goal was to provide an alternative runtime for environments where Node.js is preferred (local development, easier tooling/integration, and avoiding mandatory PHP runtime in some setups), while preserving the original PHP baseline.
-- **Reason for keeping both**: Compatibility and low risk. Existing PHP flows and files remain available so teams can use the original stack or switch to Node.js progressively.
+- https://github.com/HbbTV-Association/ReferenceApplication
 
-- Added a Node server with Express (`server/index.js`).
+Use upstream if you need the original PHP runtime and behavior as maintained by HbbTV Association.
+
+### What was changed in this fork
+
+- Added Node server and routing layer (`server/index.js`).
 - Added Node project files (`package.json`, `package-lock.json`).
-- Implemented Node endpoints equivalent to the main PHP backend behaviors (catalogue rendering, ads/subtitles proxy, logging, editor save, DRM proxy endpoints, and multiperiod endpoint).
-- Kept PHP files in place so the original flow still exists.
+- Implemented Node endpoints for catalogue rendering, ads/subtitles proxy, logging, editor save, DRM proxy endpoints, and multiperiod endpoint.
+- Updated frontend/config endpoint references to use Node routes.
 - Added migration docs: `README_NODEJS.md` and `doc/nodejs_migration.md`.
 
-### How the migration was done
-
-The migration was done incrementally and with parity-first criteria:
-
-1. Added a new Node entrypoint (`server/index.js`) without deleting PHP files.
-2. Implemented backend route equivalents in Node for the PHP endpoints.
-3. Kept static front-end assets and UI behavior unchanged.
-4. Restored original PHP references in front-end files to keep baseline compatibility.
-5. Documented both runtimes so installation/usage is explicit for each mode.
-
-### Installation and run
-
-#### Option A: Node.js runtime
+### Installation and run (Node.js)
 
 Requirements:
 - Node.js 18+ (recommended)
@@ -68,21 +58,6 @@ npm start
 
 Open:
 - `http://127.0.0.1:8000/catalogue/index`
-
-#### Option B: Original PHP runtime
-
-Requirements:
-- PHP 5+ (as documented by the original project)
-
-Start from `src`:
-
-```bash
-cd src
-php -S 127.0.0.1:8000
-```
-
-Open:
-- `http://127.0.0.1:8000/catalogue/index.php`
 
 ## Disclaimer and data collection
 
