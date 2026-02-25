@@ -150,12 +150,14 @@ See components and modules listing at [integration] guide
 
 ### Catalogue menu structure:
 
-Mainmenu, submenus, assets and actions are configured in __[config.json]__ file. 
+Main menu, submenus, assets and actions are configured from:
 
-The file can be changed to any endpoint for data to make static menu dynamic.
+- `src/catalogue/config-template.json` (tracked base file in this fork)
+- `src/catalogue/config.json` (local runtime file, generated from template)
 
-Menu structure for the catalogue app should respect used json structure that 
-is designed to represent a vod catalogue build by mainmenu and submenus. 
+The config source can be changed to any endpoint to make a static menu dynamic.
+
+The catalogue menu must keep the expected JSON structure that represents a VOD catalogue using main menu and submenus.
 
 Overall menu structure or datamodel is documented here: [datamodel]
 
@@ -165,7 +167,6 @@ Overall menu structure or datamodel is documented here: [datamodel]
 [integration]: <https://github.com/HbbTV-Association/ReferenceApplication/blob/master/doc/integration.md>
 [installation]: <https://github.com/HbbTV-Association/ReferenceApplication/blob/master/doc/installation_testing.md>
 [datamodel]: <https://github.com/HbbTV-Association/ReferenceApplication/blob/master/doc/datamodel.md>
-[config.json]: <https://github.com/HbbTV-Association/ReferenceApplication/blob/master/src/catalogue/config.json>
 [dasher]: <https://github.com/HbbTV-Association/ReferenceApplication/blob/master/doc/dasher.md>
 [tests]: <https://github.com/HbbTV-Association/ReferenceApplication/blob/master/doc/refapp_test.txt>
 [3rdpartycontent]: <https://github.com/HbbTV-Association/ReferenceApplication/blob/master/doc/3rdpartycontent.md>
