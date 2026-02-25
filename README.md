@@ -55,6 +55,7 @@ Requirements:
 Install and start:
 
 ```bash
+cp src/catalogue/config-template.json src/catalogue/config.json
 npm install
 npm start
 ```
