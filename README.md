@@ -51,6 +51,14 @@ In this fork, the tracked base catalogue config is `src/catalogue/config-templat
 - This means multiperiod tests still depend on external network and upstream availability.
 - Recommended next step: replace this proxy with a fully local Node implementation for multiperiod MPD generation.
 
+### Ads integration reference (not implemented here)
+
+For HbbTV ad workflows, Google also provides an HbbTV-focused IMA DAI sample/library:
+
+- https://github.com/googleads/googleads-ima-html5-dai/tree/main/hbbtv
+
+This fork does **not** currently implement or integrate that library.
+
 ### Installation and run (Node.js)
 
 Requirements:
