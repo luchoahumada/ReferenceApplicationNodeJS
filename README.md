@@ -19,6 +19,14 @@ HbbTV Association is happy to accept content contributions to be included in the
 
 The software is under continuous development and licensed with MIT License.
 
+## Runtime notes (PHP and Node.js)
+
+This repository keeps the original PHP implementation and also includes an additional Node.js runtime option.
+
+- PHP remains available as originally provided (`src/**/*.php`).
+- Node.js support is additive for local/dev use (`server/`, `package.json`).
+- Coexistence details and Node start instructions are documented in `README_NODEJS.md`.
+
 ## Disclaimer and data collection
 
 This tool is provided by the HbbTV Association, a cooperation between broadcasters, operators, manufacturers and technology providers worldwide. It is a non-profit association registered in Switzerland, and is as such constrained by competition law which generally forbids coordination of activity, except standardization activity which produces clear benefits for consumers. Therefore, while the provision of this tool has been made to encourage and facilitate standardization around DRM, the HbbTV Association has chosen not to share individual device results with its own members or beyond, to avoid any risk of competitors gaining an advantage through this data.
