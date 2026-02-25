@@ -31,11 +31,25 @@ This repository keeps the original PHP implementation and also includes an addit
 
 The project was prepared to run with Node.js while keeping the original PHP code in the same repository.
 
+- **When**: This migration was introduced in this local repository update during the current maintenance cycle.
+- **Why**: The main goal was to provide an alternative runtime for environments where Node.js is preferred (local development, easier tooling/integration, and avoiding mandatory PHP runtime in some setups), while preserving the original PHP baseline.
+- **Reason for keeping both**: Compatibility and low risk. Existing PHP flows and files remain available so teams can use the original stack or switch to Node.js progressively.
+
 - Added a Node server with Express (`server/index.js`).
 - Added Node project files (`package.json`, `package-lock.json`).
 - Implemented Node endpoints equivalent to the main PHP backend behaviors (catalogue rendering, ads/subtitles proxy, logging, editor save, DRM proxy endpoints, and multiperiod endpoint).
 - Kept PHP files in place so the original flow still exists.
 - Added migration docs: `README_NODEJS.md` and `doc/nodejs_migration.md`.
+
+### How the migration was done
+
+The migration was done incrementally and with parity-first criteria:
+
+1. Added a new Node entrypoint (`server/index.js`) without deleting PHP files.
+2. Implemented backend route equivalents in Node for the PHP endpoints.
+3. Kept static front-end assets and UI behavior unchanged.
+4. Restored original PHP references in front-end files to keep baseline compatibility.
+5. Documented both runtimes so installation/usage is explicit for each mode.
 
 ### Installation and run
 
