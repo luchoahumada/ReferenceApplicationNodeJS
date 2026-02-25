@@ -1,4 +1,4 @@
-# Reference Video Application
+# HbbTV Reference Video Application NodeJS
 
 ## Reference application for online video streaming.
 This application is implemented to be a reference video catalogue and player application 
