@@ -63,6 +63,22 @@ npm start
 Open:
 - `http://127.0.0.1:8000/catalogue/index`
 
+### Media format note (HbbTV)
+
+For HbbTV devices, the most interoperable streaming format is typically **MPEG-DASH**.
+
+- **MP4 (progressive)**: often supported, but device-dependent.
+- **HLS (`.m3u8`)**: not used in this fork runtime flow.
+- **DASH (`.mpd`)**: recommended baseline for cross-device HbbTV compatibility.
+
+### What is MPD?
+
+`MPD` means **Media Presentation Description**.
+
+- It is the manifest file used by MPEG-DASH (usually with `.mpd` extension).
+- It describes available video/audio/subtitle representations, segment URLs, timing, and adaptation sets.
+- The player reads the MPD first, then requests media segments accordingly.
+
 ## Disclaimer and data collection
 
 This tool is provided by the HbbTV Association, a cooperation between broadcasters, operators, manufacturers and technology providers worldwide. It is a non-profit association registered in Switzerland, and is as such constrained by competition law which generally forbids coordination of activity, except standardization activity which produces clear benefits for consumers. Therefore, while the provision of this tool has been made to encourage and facilitate standardization around DRM, the HbbTV Association has chosen not to share individual device results with its own members or beyond, to avoid any risk of competitors gaining an advantage through this data.
