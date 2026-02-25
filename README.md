@@ -27,6 +27,49 @@ This repository keeps the original PHP implementation and also includes an addit
 - Node.js support is additive for local/dev use (`server/`, `package.json`).
 - Coexistence details and Node start instructions are documented in `README_NODEJS.md`.
 
+### What was done for Node.js in this repository
+
+The project was prepared to run with Node.js while keeping the original PHP code in the same repository.
+
+- Added a Node server with Express (`server/index.js`).
+- Added Node project files (`package.json`, `package-lock.json`).
+- Implemented Node endpoints equivalent to the main PHP backend behaviors (catalogue rendering, ads/subtitles proxy, logging, editor save, DRM proxy endpoints, and multiperiod endpoint).
+- Kept PHP files in place so the original flow still exists.
+- Added migration docs: `README_NODEJS.md` and `doc/nodejs_migration.md`.
+
+### Installation and run
+
+#### Option A: Node.js runtime
+
+Requirements:
+- Node.js 18+ (recommended)
+- npm
+
+Install and start:
+
+```bash
+npm install
+npm start
+```
+
+Open:
+- `http://127.0.0.1:8000/catalogue/index`
+
+#### Option B: Original PHP runtime
+
+Requirements:
+- PHP 5+ (as documented by the original project)
+
+Start from `src`:
+
+```bash
+cd src
+php -S 127.0.0.1:8000
+```
+
+Open:
+- `http://127.0.0.1:8000/catalogue/index.php`
+
 ## Disclaimer and data collection
 
 This tool is provided by the HbbTV Association, a cooperation between broadcasters, operators, manufacturers and technology providers worldwide. It is a non-profit association registered in Switzerland, and is as such constrained by competition law which generally forbids coordination of activity, except standardization activity which produces clear benefits for consumers. Therefore, while the provision of this tool has been made to encourage and facilitate standardization around DRM, the HbbTV Association has chosen not to share individual device results with its own members or beyond, to avoid any risk of competitors gaining an advantage through this data.
