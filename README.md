@@ -32,6 +32,7 @@ This repository is a **Node.js-focused fork** of the original HbbTV Reference Ap
 The original upstream project (PHP-based) is:
 
 - https://github.com/HbbTV-Association/ReferenceApplication
+- HbbTV developer getting started guide: https://developer.hbbtv.org/guide/getting-started/before-you-start/
 
 Use upstream if you need the original PHP runtime and behavior as maintained by HbbTV Association.
 For reference, the original upstream `config.json` is:
@@ -45,6 +46,12 @@ For reference, the original upstream `config.json` is:
 - Implemented Node endpoints for catalogue rendering, ads/subtitles proxy, logging, editor save, DRM proxy endpoints, and multiperiod endpoint.
 - Updated frontend/config endpoint references to use Node routes.
 - Added migration docs in this fork (`README_NODEJS.md` and `doc/nodejs_migration.md`).
+
+### Known migration gap to address
+
+- `GET /api/test/multiperiod` currently proxies to the external upstream generator (`https://refapp.hbbtv.org/videos/multiperiod_v8.php`).
+- This means multiperiod tests still depend on external network and upstream availability.
+- Recommended next step: replace this proxy with a fully local Node implementation for multiperiod MPD generation.
 
 ### Installation and run (Node.js)
 
