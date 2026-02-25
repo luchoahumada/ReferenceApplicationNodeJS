@@ -34,6 +34,9 @@ The original upstream project (PHP-based) is:
 - https://github.com/HbbTV-Association/ReferenceApplication
 
 Use upstream if you need the original PHP runtime and behavior as maintained by HbbTV Association.
+For reference, the original upstream `config.json` is:
+
+- https://github.com/HbbTV-Association/ReferenceApplication/blob/master/src/catalogue/config.json
 
 ### What was changed in this fork
 
@@ -41,7 +44,7 @@ Use upstream if you need the original PHP runtime and behavior as maintained by 
 - Added Node project files (`package.json`, `package-lock.json`).
 - Implemented Node endpoints for catalogue rendering, ads/subtitles proxy, logging, editor save, DRM proxy endpoints, and multiperiod endpoint.
 - Updated frontend/config endpoint references to use Node routes.
-- Added migration docs: `README_NODEJS.md` and `doc/nodejs_migration.md`.
+- Added migration docs in this fork (`README_NODEJS.md` and `doc/nodejs_migration.md`).
 
 ### Installation and run (Node.js)
 
